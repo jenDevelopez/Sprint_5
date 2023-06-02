@@ -1,14 +1,16 @@
-const boton = document.getElementById("btn")
-const chiste = document.getElementById("chiste")
+//NIVEL 1
+//EJERCICIO 1
+const boton = document.getElementById("btn");
+const chiste = document.getElementById("chiste");
 
-const llamadaAPI = () =>{
+const llamadaAPI = () => {
     fetch("https://icanhazdadjoke.com/slack")
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
             if (chiste instanceof HTMLElement) {
-                chiste.innerText = data.attachments[0].text; // Actualiza el texto del elemento con el chiste obtenido
+            chiste.innerText = data.attachments[0].text; 
             }
         })
-        .catch(err => console.error(err))
-}
-boton?.addEventListener("click",llamadaAPI)
+        .catch((err) => console.error(err));
+};
+boton?.addEventListener("click", llamadaAPI);
