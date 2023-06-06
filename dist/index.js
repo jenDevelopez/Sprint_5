@@ -9,18 +9,6 @@ const llamadaApiConsola = () => {
     })
         .catch((err) => console.error(err));
 };
-const llamadaAPI = () => {
-    fetch("https://icanhazdadjoke.com/slack")
-        .then((res) => res.json())
-        .then((data) => {
-        if (joke instanceof HTMLElement) {
-            joke.innerHTML = data.attachments[0].text;
-        }
-    })
-        .catch((err) => console.error(err));
-};
-button === null || button === void 0 ? void 0 : button.addEventListener("click", llamadaApiConsola);
-button === null || button === void 0 ? void 0 : button.addEventListener("click", llamadaAPI);
 const buttonSubmit = document.getElementById("submit");
 let reportAcudits = [];
 function acudits() {
@@ -69,3 +57,32 @@ function weather() {
         .catch(err => console.log(err));
 }
 document.addEventListener("DOMContentLoaded", weather);
+function llamadaAPI() {
+    const url = 'https://chuck-norris-by-api-ninjas.p.rapidapi.com/v1/chucknorris';
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '47f62bf98cmsh1b21dc3a5988ea8p1f2b06jsn1398a8f6987a',
+            'X-RapidAPI-Host': 'chuck-norris-by-api-ninjas.p.rapidapi.com'
+        }
+    };
+    fetch("https://icanhazdadjoke.com/slack")
+        .then((res) => res.json())
+        .then((dataJoke) => {
+        fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+            let combinedJokes = [dataJoke.attachments[0].text, data.joke];
+            const shuffledJokes = combinedJokes.sort(() => Math.random() - 0.5);
+            shuffledJokes.forEach((jokeRandom) => {
+                if (joke instanceof HTMLElement) {
+                    joke.innerHTML = jokeRandom;
+                }
+            });
+        })
+            .catch(err => console.log(err));
+    })
+        .catch((err) => console.error(err));
+}
+button === null || button === void 0 ? void 0 : button.addEventListener("click", llamadaApiConsola);
+button === null || button === void 0 ? void 0 : button.addEventListener("click", llamadaAPI);

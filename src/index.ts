@@ -13,18 +13,16 @@ const llamadaApiConsola = () => {
 };
 
 //EJERCICIO 2
-const llamadaAPI = () => {
-    fetch("https://icanhazdadjoke.com/slack")
-    .then((res) => res.json())
-    .then((data) => {
-        if (joke instanceof HTMLElement) {
-            joke.innerHTML = data.attachments[0].text; 
-        }
-    })
-    .catch((err) => console.error(err));
-};
-button?.addEventListener("click",llamadaApiConsola)
-button?.addEventListener("click", llamadaAPI);
+// const llamadaAPI = () => {
+//     fetch("https://icanhazdadjoke.com/slack")
+//     .then((res) => res.json())
+//     .then((data) => {
+//         if (joke instanceof HTMLElement) {
+//             joke.innerHTML = data.attachments[0].text; 
+//         }
+//     })
+//     .catch((err) => console.error(err));
+// };
 
 //EJERCICIO 3
 const buttonSubmit = document.getElementById("submit")
@@ -57,17 +55,17 @@ function weather() {
             'X-RapidAPI-Host': 'visual-crossing-weather.p.rapidapi.com'
         }
     };
-
+    
     fetch(url,options)
-        .then(res => res.json())
-        .then(data => {
-            let container = document.querySelector("#weather")
-            let div:HTMLElement = document.createElement("div")
-            let info = data.locations["Barcelona"].values[0]
-            let nameCity = data.locations["Barcelona"].id
-            let city = document.createElement("p")
-            city.innerHTML = `${nameCity} `
-            city.classList.add("mx-3")
+    .then(res => res.json())
+    .then(data => {
+        let container = document.querySelector("#weather")
+        let div:HTMLElement = document.createElement("div")
+        let info = data.locations["Barcelona"].values[0]
+        let nameCity = data.locations["Barcelona"].id
+        let city = document.createElement("p")
+        city.innerHTML = `${nameCity} `
+        city.classList.add("mx-3")
             let temp = document.createElement("p")
             temp.innerHTML = ` ${info.temp} ºC`
             div.appendChild(city)
@@ -79,3 +77,35 @@ function weather() {
         .catch(err => console.log(err))
 }
 document.addEventListener("DOMContentLoaded",weather);
+//EJERCICIO 5
+function llamadaAPI(){
+    const url = 'https://chuck-norris-by-api-ninjas.p.rapidapi.com/v1/chucknorris';
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '47f62bf98cmsh1b21dc3a5988ea8p1f2b06jsn1398a8f6987a',
+            'X-RapidAPI-Host': 'chuck-norris-by-api-ninjas.p.rapidapi.com'
+        }
+    };
+
+    fetch("https://icanhazdadjoke.com/slack")
+    .then((res) => res.json())
+    .then((dataJoke) => {
+        fetch(url,options)
+        .then(res => res.json())
+        .then(data =>{
+            let combinedJokes = [dataJoke.attachments[0].text,data.joke]
+            const shuffledJokes = combinedJokes.sort(() => Math.random() - 0.5);
+            shuffledJokes.forEach((jokeRandom)=>{
+                if(joke instanceof HTMLElement){
+                    joke.innerHTML = jokeRandom
+                }
+            })
+        })
+        .catch(err => console.log(err))
+    })
+    .catch((err) => console.error(err));
+
+}
+button?.addEventListener("click",llamadaApiConsola)
+button?.addEventListener("click", llamadaAPI);
