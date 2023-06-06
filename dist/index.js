@@ -26,7 +26,6 @@ function acudits() {
     })
         .catch((err) => console.error(err));
 }
-buttonSubmit === null || buttonSubmit === void 0 ? void 0 : buttonSubmit.addEventListener("click", acudits);
 function weather() {
     const url = 'https://visual-crossing-weather.p.rapidapi.com/forecast?aggregateHours=24&location=Barcelona&contentType=json&unitGroup=uk';
     const options = {
@@ -43,11 +42,27 @@ function weather() {
         let div = document.createElement("div");
         let info = data.locations["Barcelona"].values[0];
         let nameCity = data.locations["Barcelona"].id;
+        let icon = data.locations["Barcelona"].values[0].conditions;
+        let img = document.createElement("img");
+        switch (icon) {
+            case 'Overcast':
+            case 'Partially cloudy':
+                img.src = './img/cloudy.png';
+                break;
+            case 'Clear':
+                img.src = './img/sun.png';
+                break;
+            case 'Rain':
+                img.src = './img/rain.png';
+                break;
+        }
+        img.classList.add("icon-weather");
         let city = document.createElement("p");
         city.innerHTML = `${nameCity} `;
         city.classList.add("mx-3");
         let temp = document.createElement("p");
         temp.innerHTML = ` ${info.temp} ºC`;
+        div.appendChild(img);
         div.appendChild(city);
         div.appendChild(temp);
         div.classList.add("d-flex");
@@ -56,7 +71,6 @@ function weather() {
     })
         .catch(err => console.log(err));
 }
-document.addEventListener("DOMContentLoaded", weather);
 function llamadaAPI() {
     const url = 'https://chuck-norris-by-api-ninjas.p.rapidapi.com/v1/chucknorris';
     const options = {
@@ -84,5 +98,16 @@ function llamadaAPI() {
     })
         .catch((err) => console.error(err));
 }
+let p = document.getElementById("p");
+let container = document.getElementById("app");
+container === null || container === void 0 ? void 0 : container.classList.add("bg-transparent");
+if (container instanceof HTMLElement) {
+    container.style.backgroundImage = "url('./img/blob.svg')";
+    container.style.backgroundSize = "cover";
+    container.style.backgroundRepeat = "no-repeat";
+    container.style.backgroundPosition = "center";
+}
+document.addEventListener("DOMContentLoaded", weather);
 button === null || button === void 0 ? void 0 : button.addEventListener("click", llamadaApiConsola);
 button === null || button === void 0 ? void 0 : button.addEventListener("click", llamadaAPI);
+buttonSubmit === null || buttonSubmit === void 0 ? void 0 : buttonSubmit.addEventListener("click", acudits);
